@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Fixed Referrer Policy for Banners & Images -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Course Content | 𝐏𝐀𝐍𝐃ԵY 𝐉𝐈 UP⁴³</title>
+    
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Swiper CSS & JS for Auto-playing Banners -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- PDF-Lib for Client-Side PDF Watermarking on Download -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+    <style>
+        * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        #search-box {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        .watermark-overlay {
+            position: fixed;
+            top: 40%;
+            left: 5%;
+            right: 5%;
+            font-size: 24px;
+            font-weight: 900;
+            color: rgba(255, 153, 51, 0.25);
+            transform: rotate(-25deg);
+            pointer-events: none;
+            z-index: 99999;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+        }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #f0f2f5; 
+            padding: 15px; 
+            margin: 0; 
+            padding-bottom: 80px; 
+            transition: background 0.3s ease, filter 0.2s ease; 
+        }
+        
+        body.theme-white { background: #ffffff !important; }
+        body.theme-black { background: #000000 !important; color: #ffffff !important; }
+        body.theme-black .header { background: #111111 !important; box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05); border: 1px solid #333; }
+        body.theme-black .search-input { background: #222 !important; color: #fff !important; }
+        body.theme-black .batch-card, body.theme-black .sub-box, body.theme-black .loader-box, body.theme-black .folder-card { background: #121212 !important; border-color: #222 !important; color: #fff !important; }
+        body.theme-black .batch-card-title, body.theme-black .item-title, body.theme-black h3 { color: #f0f0f0 !important; }
+        body.theme-black .nav-menu { background: #111111 !important; border-top: 1px solid #222 !important; }
+        body.theme-black .nav-btn { background: #1a1a1a !important; color: #ddd !important; border-color: #ff9933 !important; }
+        
+        .header { 
+            background: #ff9933; 
+            padding: 10px 15px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 12px rgba(255, 153, 51, 0.25); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+
+        .dev-profile-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px 4px 4px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dev-profile-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid #fff;
+        }
+        .dev-profile-name {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+
+        .search-input { 
+            width: 100%; padding: 10px 14px; border-radius: 8px; border: none; 
+            font-size: 14px; outline: none; background: #fff; color: #333; 
+        }
+
+        .sun-logo-btn {
+            background: #ffffff; color: #ff9933; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+            cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15); flex-shrink: 0; border: none;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .sun-logo-btn:hover { transform: scale(1.1); }
+
+        .nav-menu {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); display: flex; justify-content: space-around;
+            padding: 10px 0; z-index: 3000; border-top: 1px solid #ddd;
+        }
+        .nav-btn {
+            background: #f0f2f5; color: #333; border: 2px solid #ff9933; padding: 8px 18px;
+            border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;
+        }
+        .nav-btn.active, .nav-btn:hover { background: #ff9933; color: #fff; }
+        
+        @keyframes liveBlink {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .live-dot { animation: liveBlink 1.2s infinite ease-in-out; color: #ff3b30 !important; font-size: 10px; }
+        
+        .live-badge-overlay {
+            position: absolute; top: 8px; left: 8px; background: #ff3b30; color: #fff;
+            padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;
+            display: flex; align-items: center; gap: 4px; z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .live-badge-dot {
+            width: 6px; height: 6px; background: #fff; border-radius: 50%;
+            animation: liveBlink 1.2s infinite ease-in-out;
+        }
+        body.fullscreen-active .header, 
+        body.fullscreen-active .nav-menu, 
+        body.fullscreen-active #portal-container, 
+        body.fullscreen-active .watermark-overlay {
+            display: none !important;
+        }
+        body.fullscreen-active {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: #000 !important;
+        }
+
+        body.fullscreen-active #player-wrapper {
+            position: fixed !important;
+            top: 0 !important; 
+            left: 0 !important;
+            width: 100vw !important; 
+            height: 100vh !important;
+            max-width: 100vw !important;
+            z-index: 999999 !important;
+            border: none !important; 
+            border-radius: 0 !important;
+            margin: 0 !important; 
+            background: #000 !important;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body.fullscreen-active .v-bar {
+            width: 100% !important;
+            box-sizing: border-box;
+            z-index: 1000000;
+            background: rgba(30, 30, 30, 0.9);
+        }
+        
+        body.fullscreen-active #video-target {
+            flex-grow: 1 !important;
+            width: 100% !important;
+            height: 100% !important;
+            position: relative !important;
+            background: #000 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        body.fullscreen-active #video-target video,
+        body.fullscreen-active #video-target iframe {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 100vh !important;
+            height: 100vw !important;
+            transform: translate(-50%, -50%) rotate(90deg) !important;
+            max-width: none !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            background: #000 !important;
+        }
+        #player-wrapper { 
+            display: none; position: sticky; top: 10px; z-index: 2000; background: #000; 
+            border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); margin-bottom: 20px; 
+            overflow: hidden; border: 2px solid #ff9933; width: 100%;
+        }
+        #video-target { position: relative; width: 100%; background: #000; }
+
+        .v-bar { background: #1e1e1e; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; height: 25px; }
+        #v-title { font-size: 13px; color: #ff9933; font-weight: bold; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .player-controls-top { display: flex; align-items: center; gap: 6px; }
+
+        .batch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .batch-card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; position: relative; display: flex; flex-direction: column; }
+        .batch-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-color: #ff9933; }
+        
+        .banner-container { width: 100%; height: 130px; background: #111; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        .batch-card img { width: 100%; height: 100%; object-fit: contain; }
+
+        .fav-icon-btn { position: absolute; top: 8px; right: 8px; background: rgba(0, 0, 0, 0.6); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; z-index: 10; transition: transform 0.2s, background 0.2s; cursor: pointer; }
+        .fav-icon-btn:hover { transform: scale(1.15); }
+        .fav-icon-btn.active { color: #ff4757; background: rgba(255, 255, 255, 0.9); }
+
+        .batch-card-body { padding: 10px 12px; display: flex; flex-direction: column; flex-grow: 1; }
+        .batch-card-title { font-weight: bold; color: #333; font-size: 14px; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .batch-card-sub { font-size: 11px; color: #ff9933; font-weight: bold; margin-bottom: 8px; }
+        
+        .card-highlights { list-style: none; padding: 0; margin: 0 0 10px 0; font-size: 11.5px; color: #555; flex-grow: 1; }
+        .card-highlights li { margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        body.theme-black .card-highlights { color: #ccc; }
+        .card-highlights-text { font-size: 11.5px; color: #555; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex-grow: 1; line-height: 1.4; }
+        body.theme-black .card-highlights-text { color: #ccc; }
+
+        .batch-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee; margin-top: auto; }
+        .price-tag { display: flex; flex-direction: column; gap: 3px; }
+        .price-row { display: flex; align-items: baseline; gap: 8px; }
+        .free-price { font-size: 18px; font-weight: 900; color: #28a745; }
+        .old-price { font-size: 14px; color: #888; text-decoration: line-through; font-weight: 600; }
+        .price-discount-badge { font-size: 11px; font-weight: 800; color: #155724; background: #d4edda; padding: 2px 7px; border-radius: 10px; display: inline-block; width: fit-content; }
+
+        .course-meta-tags { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+        .meta-tag { font-size: 11px; color: #444; background: #eef2f5; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; font-weight: 700; }
+        body.theme-black .meta-tag { background: #222; color: #ccc; }
+        
+        .play-btn-card { 
+            background: #28a745; 
+            color: white; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            cursor: pointer; 
+            transition: opacity 0.2s;
+        }
+        .play-btn-card:hover { opacity: 0.9; }
+
+        .batch-tab-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .batch-tab-btn { flex: 1; min-width: 75px; background: #fff; border: 2px solid #ff9933; color: #333; padding: 10px 6px; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 12px; }
+        .batch-tab-btn.active { background: #ff9933; color: #fff; }
+        body.theme-black .batch-tab-btn { background: #121212; color: #fff; }
+        body.theme-black .batch-tab-btn.active { background: #ff9933; color: #fff; }
+
+        .folder-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 14px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: all 0.2s ease; }
+        .folder-card:hover { border-color: #ff9933; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        .folder-info { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 0.95rem; }
+        .folder-count { font-size: 11px; background: #ff9933; color: #fff; padding: 3px 8px; border-radius: 12px; font-weight: 600; }
+
+        .folder-thumb-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff9933;
+            flex-shrink: 0;
+            background: #000;
+        }
+
+        .item-thumb-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff9933;
+            flex-shrink: 0;
+            background: #000;
+        }
+
+        .sub-box { background: white; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; overflow: hidden; }
+        .sub-head { background: #1e90ff; color: white; padding: 14px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
+        .content { display: none; padding: 5px; background: #fff; }
+        body.theme-black .content { background: #121212 !important; }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; word-break: break-word; gap: 8px; flex-wrap: wrap; }
+        body.theme-black .item { border-bottom-color: #222; }
+        .item:last-child { border-bottom: none; }
+        .item-title { flex-grow: 1; color: #333; font-weight: 500; font-size: 0.9rem; min-width: 180px; display: flex; align-items: center; gap: 10px; }
+        body.theme-black .item-title { color: #f0f0f0; }
+        .item-icon-pdf { color: #dc3545; font-size: 22px; width: 38px; text-align: center; flex-shrink: 0; }
+        
+        .links { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+        .btn { padding: 6px 12px; border-radius: 4px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s; }
+        .btn-v { background: #28a745; } .btn-d { background: #dc3545; } .btn-p { background: #6c757d; }
+        .btn:hover { opacity: 0.88; }
+        .loader-box { text-align: center; padding: 40px; background: white; border-radius: 8px; border: 1px solid #ddd; font-weight: bold; color: #ff9933; font-size: 16px; }
+        .back-btn { background: #333; color: white; padding: 10px 16px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 15px; display: inline-flex; align-items: center; gap: 6px; }
+
+        .badge { font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
+        .badge-live { background: #ff3b30; color: #ffffff; border: 1px solid #ff3b30; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .badge-live .dot { width: 6px; height: 6px; background: #ffffff; border-radius: 50%; animation: liveBlink 1s infinite; }
+        .badge-upcoming { background: rgba(234, 179, 8, 0.2); color: #eab308; border: 1px solid #eab308; }
+        .badge-completed { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid #22c55e; }
+        
+        .class-card { background: #fdfdfd; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        body.theme-black .class-card { background: #181818; border-color: #333; }
+        .class-card-head { display: flex; align-items: center; gap: 10px; padding: 12px; border-bottom: 1px solid #eee; }
+        body.theme-black .class-card-head { border-bottom-color: #222; }
+        .class-title { font-size: 0.9rem; font-weight: 600; color: #333; }
+        body.theme-black .class-title { color: #f0f0f0; }
+        .class-time { font-size: 0.75rem; color: #777; margin-top: 2px; }
+
+        #pdf-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 99999; flex-direction: column; }
+        .pdf-header { background: #1e1e1e; color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; z-index: 100001; }
+        .pdf-iframe { width: 100%; flex-grow: 1; border: none; background: #fff; height: calc(100vh - 50px); }
+
+        .pdf-watermark-repeater {
+            position: absolute;
+            top: 48px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 48px);
+            pointer-events: none;
+            z-index: 100000;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='190'%3E%3Ctext x='50%25' y='50%25' fill='rgba(255, 153, 51, 0.45)' stroke='rgba(0,0,0,0.5)' stroke-width='0.6' font-size='16' font-weight='900' font-family='Arial, sans-serif' text-anchor='middle' transform='rotate(-25, 140, 95)'%3EPANDEY JI NOT FOR SALE%3C/text%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+        #disclaimer-popup { display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 999999; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box; }
+        .disclaimer-box { background: #ffffff; color: #333333; width: 100%; max-width: 500px; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; position: relative; }
+        body.theme-black .disclaimer-box { background: #181818 !important; color: #f0f0f0 !important; border: 1px solid #333; }
+        .disclaimer-title { font-size: 18px; font-weight: bold; color: #ff9933; margin-bottom: 12px; text-align: center; border-bottom: 2px solid #ff9933; padding-bottom: 8px; }
+        .disclaimer-content { font-size: 13.5px; line-height: 1.6; margin-bottom: 15px; white-space: pre-line; }
+        .disclaimer-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .disclaimer-btn-contact { flex: 1; background: #0088cc; color: white; text-decoration: none; padding: 10px; border-radius: 6px; font-weight: bold; text-align: center; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .disclaimer-btn-ok { flex: 1; background: #28a745; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px; }
+        .disclaimer-btn-ok:hover, .disclaimer-btn-contact:hover { opacity: 0.9; }
+
+        .swiper-pagination-bullet-active { background-color: #ff9933 !important; }
+        .swiper { 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            overflow: hidden !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .swiper-slide {
+            width: 100% !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div id="disclaimer-popup">
+        <div class="disclaimer-box">
+            <div class="disclaimer-title">⚠️ Disclaimer / Notice</div>
+            <div class="disclaimer-content" id="disclaimer-text-content">
+                Loading Disclaimer...
+            </div>
+            <div class="disclaimer-actions">
+                <a href="https://share.google/8i0ZeYWx3Ymc3SCRe" target="_blank" rel="noreferrer" class="disclaimer-btn-contact">
+                    <i class="fa-brands fa-whatsapp"></i> Contact Admin
+                </a>
+                <button class="disclaimer-btn-ok" onclick="closeDisclaimer()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="watermark-overlay">
+        𝐏𝐀𝐍𝐃ԵY 𝐉𝐈 UP⁴۳ - PROTECTECTED CONTENT
+    </div>
+    
+    <div class="header" id="main-header">
+        <div class="dev-profile-container">
+            <img src="https://i.postimg.cc/wv3RgCjh/Screenshot-2026-07-30-13-33-52-41-948cd9899890cbd5c2798760b2b95377.jpg" class="dev-profile-img" alt="Dev Photo">
+        </div>
+
+        <input type="text" id="search-box" class="search-input" placeholder="Search batch by name..." onkeyup="filterBatches()">
+
+        <button class="sun-logo-btn" id="sun-toggle-btn" onclick="toggleScreenMode()" title="Toggle Screen Mode">
+            <i class="fa-solid fa-sun" id="sun-icon"></i>
+        </button>
+    </div>
+
+    <div style="max-width: 800px; margin: auto;">
+        <div id="player-wrapper">
+            <div class="v-bar">
+                <span id="v-title">Playing Video...</span>
+                <div class="player-controls-top">
+                    <button class="btn btn-p" id="speed-btn" style="padding: 3px 6px; font-size:10px; background:#e67e22;" onclick="changeVideoSpeed()" title="Change Speed">1x</button>
+                    
+                    <select id="quality-select" style="padding: 3px 6px; font-size: 10px; background: #0088cc; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; outline: none;" onchange="changeVideoQuality(this.value)">
+                        <option value="-1">Auto</option>
+                    </select>
+
+                    <button class="btn btn-v" id="vid-dl-btn" style="padding: 3px 6px; font-size:10px; background:#28a745;" onclick="downloadCurrentVideo()" title="Download Video"><i class="fa-solid fa-download"></i> DOWNLOAD</button>
+
+                    <button class="btn btn-v" style="padding: 3px 6px; font-size:10px;" onclick="togglePortraitFullscreen()" title="Full Screen"><i class="fa-solid fa-expand"></i> FULL</button>
+                    <button class="btn btn-d" style="padding: 3px 6px; font-size:10px;" onclick="closePlayer()"><i class="fa-solid fa-xmark"></i> CLOSE</button>
+                </div>
+            </div>
+            <div id="video-target"></div>
+        </div>
+
+        <div id="portal-container"></div>
+    </div>
+    <div class="nav-menu">
+        <button id="btn-home" class="nav-btn active" onclick="loadBatches()"><i class="fa-solid fa-house"></i> HOME</button>
+        <button id="btn-live" class="nav-btn" onclick="showLiveTab()">
+            <i class="fa-solid fa-tower-broadcast live-dot"></i> LIVE
+        </button>
+        <button id="btn-recorded" class="nav-btn" onclick="showRecordedTab()">
+            <i class="fa-solid fa-video"></i> RECORDED
+        </button>
+        <button id="btn-fav" class="nav-btn" onclick="showFavorites()"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> FAVORITES</button>
+    </div>
+    <div id="pdf-modal">
+        <div class="pdf-header">
+            <span id="pdf-title" style="font-size:13px; font-weight:bold; color:#ff9933; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:80%;">PDF Viewer</span>
+            <button class="btn btn-d" style="padding: 4px 10px;" onclick="closePdf()"><i class="fa-solid fa-xmark"></i> CLOSE</button>
+        </div>
+        <div class="pdf-watermark-repeater"></div>
+        <iframe id="pdf-frame" class="pdf-iframe" src=""></iframe>
+    </div>
+
+<script>
+    const API_BASE = "https://gdgoenkaratia.com/api";
+    const PDF_CUSTOM_THUMB = "https://i.postimg.cc/pV6FTSfx/IMG-20261024-110550.jpg";
+
+    let myCustomBanners = [
+        {
+            "url": "https://i.postimg.cc/HsdCssJm/file-00000000312c8211af3da971ade18b97.png",
+            "caption": "join whatsapp channel 👉",
+            "link": "https://whatsapp.com/channel/0029VbDcWLp8PgsHZKtwRd0z",
+            "btnText": "Join"
+        },
+        {
+            "url": "https://i.postimg.cc/VNBsPsBJ/file-00000000e1bc8211af2c3e40e48a2a47.png",
+            "caption": "instagram follow   👉",
+            "link": "https://www.instagram.com/abhasingh1909?stkn=aWpxamhjN3YwNWQw",
+            "btnText": "Follow"
+        },
+        {
+            "url": "https://i.postimg.cc/sfQj4nsN/IMG-20260528-111712.jpg",
+            "caption": "downselection way app 👉",
+            "link": "https://telepack.cloud/app/s/c47512f16582ed50",
+            "btnText": "download now"
+        },
+        {
+            "url": "https://i.postimg.cc/hPgknKj9/IMG-20261009-045320-475.jpg",
+            "caption": "",
+            "link": "",
+            "btnText": ""
+        },
+        {
+            "url": "https://i.postimg.cc/bwZ3c5QN/IMG-20261008-124426-447.jpg",
+            "caption": "download selection way mod apk scan qr 👆",
+            "link": "",
+            "btnText": ""
+        }
+    ];
+
+    let embeddedDisclaimerText = `यह ऐप/वेबसाइट केवल Educational Purpose (शैक्षणिक उद्देश्य) के लिए बनाई गई है। इस ऐप/वेबसाइट को सभी के लिए Free रखा गया है और किसी भी व्यक्ति से इसके लिए कोई शुल्क नहीं लिया जाता है।
+
+इस ऐप/वेबसाइट पर उपलब्ध Content, Gagan Sir Team का है। यदि Gagan Sir Team या किसी अन्य संबंधित अधिकारधारी को किसी Content को लेकर कोई समस्या या आपत्ति है, तो कृपया हमसे संपर्क करें। शिकायत प्राप्त होने पर संबंधित Content को हटा दिया जाएगा। 
+
+Thank You ❤️
+Content: Gagan Sir Team
+Developer: Pandey Ji`;
+
+    let embeddedPopupNotification = ""; 
+
+    let hlsInstance = null;
+    let allFetchedBatches = [];
+    let currentActiveBatchData = null;
+    let currentFetchedTopics = [];
+    let currentPlaybackSpeed = 1.0;
+    let currentPlayingVideoUrl = "";
+
+    // Robust Safe Fetch Wrapper with CORS Proxy Fallback for Vercel/VPN bypass
+    async function safeFetch(url, options = {}) {
+        try {
+            let res = await fetch(url, options);
+            if (res && res.ok) {
+                let json = await res.json();
+                return json;
+            }
+        } catch (e) {}
+
+        // Fallback via CORS proxy
+        let proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+        let resProxy = await fetch(proxyUrl, options);
+        let text = await resProxy.text();
+        try {
+            return JSON.parse(text);
+        } catch(err) {
+            return text;
+        }
+    }
+
+    function loadDynamicConfig() {
+        document.getElementById('disclaimer-text-content').innerText = embeddedDisclaimerText;
+    }
+
+    function esc(str) {
+        if (!str) return '';
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    function getStringVal(val) {
+        if (!val) return "";
+        if (typeof val === "string") return val.trim();
+        if (typeof val === "object") {
+            return (val.name || val.title || val.topicName || val.chapterName || val.label || "").trim();
+        }
+        return String(val).trim();
+    }
+
+    function cleanNameForGrouping(str) {
+        if (!str) return "";
+        let clean = str.trim();
+        clean = clean.replace(/^OWNER\s+PANDEY\s+JI\s*/i, '');
+        clean = clean.replace(/\b(class|lec|lecture|part|session)\s*[-:]?\s*\d+\b/gi, '');
+        clean = clean.replace(/^(class|lec|lecture|part|session)\s*[-:]?\s*\d+\s*/i, '');
+        clean = clean.replace(/\s+by\s+[\w\s\.]+$/i, '');
+        clean = clean.replace(/\s+[A-Za-z]+\s+(sir|ma'am|mam)\b/gi, '');
+        clean = clean.replace(/\s+(sir|ma'am|mam)\b/gi, '');
+        clean = clean.replace(/^[-–—:\s]+|[-–—:\s]+$/g, '').trim();
+        return clean || "General Chapters";
+    }
+
+    function openLink(url) {
+        if (!url) return;
+        playInAppVideo(url, "Live Stream / Recording");
+    }
+
+    function fetchPdfSize(url, spanId) {
+        fetch(url, { method: 'HEAD', mode: 'no-cors' })
+            .then(res => {
+                let size = res.headers.get('content-length');
+                if (size) {
+                    let mb = (size / (1024 * 1024)).toFixed(2);
+                    let el = document.getElementById(spanId);
+                    if (el) el.innerText = ` (${mb} MB)`;
+                }
+            })
+            .catch(err => {});
+    }
+
+    function changeVideoSpeed() {
+        const speeds = [1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0];
+        let currentIndex = speeds.indexOf(currentPlaybackSpeed);
+        currentIndex = (currentIndex + 1) % speeds.length;
+        currentPlaybackSpeed = speeds[currentIndex];
+
+        const videoElem = document.getElementById('active-video-element');
+        if (videoElem) {
+            videoElem.playbackRate = currentPlaybackSpeed;
+        }
+
+        const speedBtn = document.getElementById('speed-btn');
+        if (speedBtn) {
+            speedBtn.innerText = currentPlaybackSpeed + 'x';
+        }
+    }
+
+    function changeVideoQuality(levelIndex) {
+        if (hlsInstance) {
+            hlsInstance.currentLevel = parseInt(levelIndex);
+        }
+    }
+
+    function downloadCurrentVideo() {
+        if (!currentPlayingVideoUrl) {
+            alert("Koi video play nahi ho rahi hai!");
+            return;
+        }
+        let downloadUrl = currentPlayingVideoUrl;
+        if (hlsInstance && hlsInstance.levels && hlsInstance.currentLevel !== -1) {
+            let currentLevelObj = hlsInstance.levels[hlsInstance.currentLevel];
+            if (currentLevelObj && currentLevelObj.url) {
+                downloadUrl = currentLevelObj.url;
+            }
+        }
+        let a = document.createElement('a');
+        a.href = downloadUrl;
+        a.target = '_blank';
+        a.download = 'Pandey_Ji_Course_Video.mp4';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    async function togglePortraitFullscreen() {
+        const wrapper = document.getElementById('player-wrapper');
+
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            document.body.classList.add('fullscreen-active'); 
+            
+            try {
+                if (wrapper.requestFullscreen) {
+                    await wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) {
+                    await wrapper.webkitRequestFullscreen();
+                } else if (wrapper.msRequestFullscreen) {
+                    await wrapper.msRequestFullscreen();
+                } else if (wrapper.webkitEnterFullscreen) {
+                    wrapper.webkitEnterFullscreen(); 
+                }
+                
+                if (screen.orientation && screen.orientation.lock) {
+                    await screen.orientation.lock('landscape').catch(e => {});
+                }
+            } catch (err) {}
+        } else {
+            document.body.classList.remove('fullscreen-active');
+            
+            try {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    await document.webkitExitFullscreen();
+                }
+                
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                }
+            } catch (err) {}
+        }
+    }
+    
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            document.body.classList.remove('fullscreen-active');
+            if (screen.orientation && screen.orientation.unlock) {
+                screen.orientation.unlock();
+            }
+        }
+    });
+
+    function addToHistory(videoUrl, videoTitle) {
+        if (!currentActiveBatchData) return;
+        let batchId = currentActiveBatchData.id || currentActiveBatchData._id;
+        let historyKey = 'batch_history_' + batchId;
+        let history = JSON.parse(localStorage.getItem(historyKey) || '[]');
+        
+        let entry = {
+            url: videoUrl,
+            title: videoTitle || 'Video',
+            time: new Date().toISOString()
+        };
+        
+        history = history.filter(h => h.url !== videoUrl);
+        history.unshift(entry);
+        if (history.length > 50) history.pop();
+        localStorage.setItem(historyKey, JSON.stringify(history));
+    }
+
+    function clearBatchHistory(batchId) {
+        if (confirm("Kya aap watch history clear karna chahte hain?")) {
+            localStorage.removeItem('batch_history_' + batchId);
+            switchBatchTabContent(batchId, currentActiveBatchData ? (currentActiveBatchData.title || currentActiveBatchData.name || '') : '', 'history');
+        }
+    }
+
+    function playInAppVideo(videoUrl, videoTitle) {
+        if (!videoUrl) {
+            alert("Video Link Null Ya Empty Hai!");
+            return;
+        }
+currentPlayingVideoUrl = videoUrl;
+        addToHistory(videoUrl, videoTitle);
+
+        const wrapper = document.getElementById('player-wrapper');
+        const target = document.getElementById('video-target');
+        const qualitySelect = document.getElementById('quality-select');
+
+        document.getElementById('v-title').innerText = videoTitle || "Playing Video";
+        wrapper.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (qualitySelect) {
+            qualitySelect.innerHTML = '<option value="-1">Auto</option>';
+        }
+
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
+        videoUrl = videoUrl.trim();
+
+        if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+            let ytId = "";
+            if (videoUrl.includes('youtu.be/')) ytId = videoUrl.split('youtu.be/')[1].split('?')[0].split('&')[0];
+            else if (videoUrl.includes('watch?v=')) ytId = videoUrl.split('watch?v=')[1].split('&')[0];
+            else if (videoUrl.includes('embed/')) ytId = videoUrl.split('embed/')[1].split('?')[0].split('&')[0];
+
+            if (ytId) {
+                target.innerHTML = `
+                    <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                        <iframe 
+                            id="yt-iframe-player"
+                            src="https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&controls=1&playsinline=1&enablejsapi=1" 
+                            style="width:100%; height:100%; border:none;" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            sandbox="allow-scripts allow-same-origin allow-presentation allow-forms"
+                            allowfullscreen>
+                        </iframe>
+                    </div>`;
+                return;
+            }
+        }
+
+        let isDirectMedia = videoUrl.includes('.m3u8') || videoUrl.includes('.mp4') || videoUrl.includes('.webm') || videoUrl.includes('.mkv') || videoUrl.includes('.mov');
+        if (!isDirectMedia || videoUrl.includes('/embed') || videoUrl.includes('.html') || videoUrl.includes('/player') || videoUrl.includes('classplus') || videoUrl.includes('jwplayer')) {
+            target.innerHTML = `
+                <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                    <iframe src="${videoUrl}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>`;
+            return;
+        }
+
+        target.innerHTML = `<video id="active-video-element" controls autoplay playsinline controlsList="nodownload" style="width:100%; height:100%; aspect-ratio:16/9; max-height:80vh; background:#000; object-fit:contain;"></video>`;
+
+        const videoElem = document.getElementById('active-video-element');
+        videoElem.playbackRate = currentPlaybackSpeed;
+
+        let progressKey = 'video_progress_' + encodeURIComponent(videoUrl);
+        let savedTime = parseFloat(localStorage.getItem(progressKey) || 0);
+
+        videoElem.addEventListener('loadedmetadata', function() {
+            if (savedTime > 2 && savedTime < videoElem.duration - 3) {
+                videoElem.currentTime = savedTime;
+            }
+        });
+
+        videoElem.addEventListener('timeupdate', function() {
+            if (videoElem.currentTime > 2) {
+                localStorage.setItem(progressKey, videoElem.currentTime);
+            }
+        });
+
+        videoElem.addEventListener('ended', function() {
+            localStorage.removeItem(progressKey);
+        });
+
+        videoElem.onerror = function() {
+            target.innerHTML = `
+                <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                    <iframe src="${videoUrl}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>`;
+        };
+
+        if (videoUrl.includes('.m3u8')) {
+            if (Hls.isSupported()) {
+                hlsInstance = new Hls({ 
+                    enableWorker: true, 
+                    lowLatencyMode: true,
+                    xhrSetup: function(xhr, url) {
+                        xhr.withCredentials = false;
+                    }
+                });
+                hlsInstance.loadSource(videoUrl);
+                hlsInstance.attachMedia(videoElem);
+                
+                hlsInstance.on(Hls.Events.MANIFEST_PARSED, function(event, data) { 
+                    videoElem.playbackRate = currentPlaybackSpeed;
+                    
+                    if (qualitySelect && data.levels.length > 0) {
+                        qualitySelect.innerHTML = '<option value="-1">Auto</option>';
+                        data.levels.forEach((level, index) => {
+                            let resHeight = level.height ? `${level.height}p` : `Opt ${index + 1}`;
+                            let opt = document.createElement('option');
+                            opt.value = index;
+                            opt.innerText = resHeight;
+                            qualitySelect.appendChild(opt);
+                        });
+                    }
+                    
+                    let playPromise = videoElem.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {});
+                    }
+                });
+
+                hlsInstance.on(Hls.Events.ERROR, function(event, data) {
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR:
+                                hlsInstance.startLoad();
+                                break;
+                            case Hls.ErrorTypes.MEDIA_ERROR:
+                                hlsInstance.recoverMediaError();
+                                break;
+                            default:
+                                hlsInstance.destroy();
+                                target.innerHTML = `
+                                    <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                                        <iframe src="${videoUrl}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                                    </div>`;
+                                break;
+                        }
+                    }
+                });
+            } else if (videoElem.canPlayType('application/vnd.apple.mpegurl')) {
+                videoElem.src = videoUrl;
+                videoElem.playbackRate = currentPlaybackSpeed;
+                videoElem.play().catch(e => {});
+            } else {
+                target.innerHTML = `
+                    <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                        <iframe src="${videoUrl}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    </div>`;
+            }
+        } else {
+            videoElem.src = videoUrl;
+            videoElem.playbackRate = currentPlaybackSpeed;
+            videoElem.play().catch(e => {
+                target.innerHTML = `
+                    <div style="position:relative; width:100%; aspect-ratio:16/9; background:#000;">
+                        <iframe src="${videoUrl}" style="width:100%; height:100%; border:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                    </div>`;
+            });
+        }
+    }
+
+    function openExternalPortraitPlayer(videoUrl, videoTitle) {
+        playInAppVideo(videoUrl, videoTitle);
+    }
+    
+    function getLiveStatus(cls) {
+        if (cls.isLive && cls.streamStatus !== 'ended') return 'LIVE';
+        if (cls.streamStatus === 'ended') return 'Completed';
+        if (cls.startDate && new Date(cls.startDate) > new Date()) return 'Upcoming';
+        return 'Completed';
+    }
+
+    function renderLiveClassCard(cls) {
+        const status = getLiveStatus(cls);
+        const hasRec = cls.mp4Recordings && cls.mp4Recordings.length > 0;
+        
+        const badge = status === 'LIVE'
+            ? '<span class="badge badge-live"><span class="dot"></span>LIVE</span>'
+            : status === 'Upcoming'
+            ? '<span class="badge badge-upcoming">Upcoming</span>'
+            : '<span class="badge badge-completed">Completed</span>';
+
+        let actionBtn = '';
+        if (status === 'LIVE' && (cls.class_link || cls.streamUrl || cls.url)) {
+            let lUrl = cls.class_link || cls.streamUrl || cls.url;
+            actionBtn = `<button class="btn" style="width:100%; margin-top:10px; background:#ff3b30; color:#fff; justify-content:center; text-align:center;" onclick="playInAppVideo('${esc(lUrl)}', '${esc(cls.title)}')"><i class="fa-solid fa-play"></i> Join Live</button>`;
+        } else if (status === 'Completed' && hasRec) {
+            if (cls.mp4Recordings.length > 1) {
+                actionBtn = '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">' +
+                cls.mp4Recordings.map(r => `<button class="btn btn-v" style="font-size:11px;padding:4px 8px;" onclick="playInAppVideo('${esc(r.url)}', '${esc(cls.title)}')">▶ ${esc(r.quality || 'Play')}</button>`).join('') +
+                '</div>';
+            } else {
+                actionBtn = `<button class="btn btn-v" style="width:100%;margin-top:10px;" onclick="playInAppVideo('${esc(cls.mp4Recordings[0].url)}', '${esc(cls.title)}')"><i class="fa-solid fa-play"></i> Watch Recording</button>`;
+            }
+        } else if (status === 'Upcoming') {
+            actionBtn = `<button class="btn" style="width:100%;margin-top:10px;background:#6c757d;" disabled>⏳ Upcoming</button>`;
+        }
+
+        return `
+        <div class="class-card">
+            <div class="class-card-head">
+                <div style="flex:1;min-width:0;">
+                    <div class="class-title">${esc(cls.title)}</div>
+                    <div class="class-time"><i class="fa-regular fa-clock"></i> ${new Date(cls.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ${cls.endDate ? ` – ${new Date(cls.endDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}</div>
+                </div>
+                ${badge}
+            </div>
+            ${actionBtn ? `<div style="padding:10px 12px;">${actionBtn}</div>` : ''}
+        </div>`;
+    }
+
+    async function renderTimetabTab(batchId, batchData) {
+        const container = document.getElementById('batch-tab-content');
+        container.innerHTML = '<div class="loader-box"><i class="fa-solid fa-circle-notch fa-spin"></i><br><br>⏳ Loading Time Table...</div>';
+
+        const timeTable = batchData.timeTable || batchData.timetable || batchData.schedule || [];
+        let liveHtml = '<p style="font-size:13px;color:#888;padding:10px 0;text-align:center;">No classes scheduled for today.</p>';
+        
+        try {
+            const j = await safeFetch(`${API_BASE}/courses/${batchId}/todays-classes`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({})
+            });
+            const classes = j?.data?.classes || j?.classes || [];
+            
+            if (classes.length > 0) {
+                const sorted = [...classes].sort((a, b) => {
+                    const order = { 'LIVE': 0, 'Upcoming': 1, 'Completed': 2 };
+                    return (order[getLiveStatus(a)] ?? 2) - (order[getLiveStatus(b)] ?? 2);
+                });
+                liveHtml = sorted.map(c => renderLiveClassCard(c)).join('');
+            }
+        } catch (e) {}
+
+        let ttHtml = "";
+        if (Array.isArray(timeTable) && timeTable.length > 0) {
+            ttHtml = timeTable.map(t => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:13px;"><span><b>${esc(t.topic || t.title || 'Topic')}</b></span><span style="color:#777;">${esc(t.time || t.schedule || '')}</span></div>`).join('');
+        } else if (typeof timeTable === 'string') {
+            ttHtml = `<div style="font-size:13px;line-height:1.6;white-space:pre-line;">${esc(timeTable)}</div>`;
+        } else {
+            ttHtml = '<p style="font-size:13px;color:#888;padding:10px 0;text-align:center;">Time table will be updated soon.</p>';
+        }
+
+        container.innerHTML = `
+            <div class="sub-box" style="padding:15px; margin-bottom:15px;">
+                <h4 style="color:#ff3b30; margin-top:0; margin-bottom:12px;"><i class="fa-solid fa-tower-broadcast"></i> Today's Classes</h4>
+                ${liveHtml}
+            </div>
+            <div class="sub-box" style="padding:15px;">
+                <h4 style="color:#ff9933; margin-top:0; margin-bottom:12px;"><i class="fa-solid fa-calendar-days"></i> Time Table Schedule</h4>
+                ${ttHtml}
+            </div>`;
+    }
+
+    function closeDisclaimer() { document.getElementById('disclaimer-popup').style.display = 'none'; }
+
+    function toggleScreenMode() {
+        let body = document.body;
+        let sunIcon = document.getElementById('sun-icon');
+        if (body.classList.contains('theme-black')) {
+            body.classList.remove('theme-black'); body.classList.add('theme-white');
+            sunIcon.className = "fa-solid fa-sun"; localStorage.setItem('screen_mode', 'white');
+        } else {
+            body.classList.remove('theme-white'); body.classList.add('theme-black');
+            sunIcon.className = "fa-solid fa-moon"; localStorage.setItem('screen_mode', 'black');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        let savedMode = localStorage.getItem('screen_mode');
+        let sunIcon = document.getElementById('sun-icon');
+        if (savedMode === 'black') { document.body.classList.add('theme-black'); sunIcon.className = "fa-solid fa-moon"; } 
+        else { document.body.classList.add('theme-white'); sunIcon.className = "fa-solid fa-sun"; }
+    });
+
+    function getFavorites() { return JSON.parse(localStorage.getItem('fav_batches') || '[]'); }
+
+    function toggleFavorite(event, batchJsonStr) {
+        event.stopPropagation();
+        let batch = JSON.parse(decodeURIComponent(batchJsonStr));
+        let favs = getFavorites();
+        let index = favs.findIndex(f => (f.id || f._id) === (batch.id || batch._id));
+        if(index > -1) { favs.splice(index, 1); } else { favs.push(batch); }
+        localStorage.setItem('fav_batches', JSON.stringify(favs));
+        if(document.getElementById('btn-fav').classList.contains('active')) { showFavorites(); } else { filterBatches(); }
+    }
+       document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === "PrintScreen" || e.keyCode === 44) {
+            navigator.clipboard.writeText(""); alert("Screenshots are disabled for security!"); e.preventDefault();
+        }
+        if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'p' || e.key === 'i' || e.key === 'j' || e.key === 'c')) { e.preventDefault(); }
+        if (e.keyCode === 123) { e.preventDefault(); }
+    });
+
+    window.addEventListener('blur', function () { 
+        if (document.activeElement && document.activeElement.tagName === 'IFRAME') return;
+        document.body.style.filter = 'blur(20px)'; 
+    });
+
+    window.addEventListener('focus', function () { 
+        document.body.style.filter = 'none'; 
+    });
+
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { 
+            document.body.style.filter = 'blur(20px)'; 
+        } else { 
+            document.body.style.filter = 'none'; 
+        }
+    });
+
+    function toggle(id) {
+        var e = document.getElementById(id);
+        if(e) { e.style.display = (e.style.display === "block") ? "none" : "block"; }
+    }
+
+    function setActiveTab(tab) {
+        document.getElementById('btn-home').classList.remove('active');
+        document.getElementById('btn-live').classList.remove('active');
+        if(document.getElementById('btn-recorded')) document.getElementById('btn-recorded').classList.remove('active');
+        document.getElementById('btn-fav').classList.remove('active');
+        if(tab === 'home') document.getElementById('btn-home').classList.add('active');
+        if(tab === 'live') document.getElementById('btn-live').classList.add('active');
+        if(tab === 'recorded' && document.getElementById('btn-recorded')) document.getElementById('btn-recorded').classList.add('active');
+        if(tab === 'fav') document.getElementById('btn-fav').classList.add('active');
+    }
+
+    function isBatchRecorded(b) {
+        let searchString = ((b.title || b.name || "") + " " + (b.description || b.about || "")).toLowerCase();
+        return searchString.includes("vod") || searchString.includes("vdo") || searchString.includes("video") || searchString.includes("recorded") || searchString.includes("rec");
+    }
+
+    function getLiveBatches() { return allFetchedBatches.filter(b => !isBatchRecorded(b)); }
+    function getRecordedBatches() {
+        return allFetchedBatches.filter(b => {
+            let searchString = ((b.title || b.name || "") + " " + (b.description || b.about || "")).toLowerCase();
+            return isBatchRecorded(b) || searchString.includes("reasoning special") || (!searchString.includes("live") && b.isLive !== true);
+        });
+    }
+
+    function filterBatches() {
+        let query = document.getElementById('search-box').value.toLowerCase().trim();
+        let targetList = [];
+
+        if(document.getElementById('btn-fav').classList.contains('active')) { targetList = getFavorites(); } 
+        else if(document.getElementById('btn-live').classList.contains('active')) { targetList = getLiveBatches(); } 
+        else if(document.getElementById('btn-recorded') && document.getElementById('btn-recorded').classList.contains('active')) { targetList = getRecordedBatches(); } 
+        else { targetList = allFetchedBatches; }
+
+        let filtered = targetList.filter(b => {
+            let title = (b.title || b.name || "").toLowerCase();
+            return title.includes(query);
+        });
+
+        let isHomeTab = document.getElementById('btn-home').classList.contains('active');
+        let isLiveTab = document.getElementById('btn-live').classList.contains('active');
+        renderBatchesGrid(filtered, isHomeTab || isLiveTab);
+    }
+
+    function renderBatchesGrid(batches, checkTop24Global = false) {
+        const container = document.getElementById('portal-container');
+        let favs = getFavorites();
+        let html = '';
+
+        let isHomeTab = document.getElementById('btn-home').classList.contains('active');
+        let query = document.getElementById('search-box').value.trim();
+
+        if (isHomeTab && query === '' && myCustomBanners.length > 0) {
+            let swiperSlides = myCustomBanners.map((banner, index) => {
+                let mediaElement = '';
+                let urlLower = (banner.url || '').toLowerCase();
+                
+                if (urlLower.endsWith('.mp4') || urlLower.endsWith('.m3u8') || urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) {
+                    mediaElement = `<video src="${banner.url}" autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; background:#000;"></video>`;
+                } else {
+                    mediaElement = `<img src="${banner.url}" style="width:100%; height:100%; object-fit:contain;" onerror="this.src='https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png'">`;
+                }
+
+                let btnHtml = (banner.link && banner.btnText) ? `<a href="${banner.link}" target="_blank" style="margin-left: 12px; background: #28a745; color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold; border: 1px solid #fff; box-shadow: 0 3px 6px rgba(0,0,0,0.4); display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;">${banner.btnText} <i class="fa-solid fa-arrow-right" style="font-size:11px;"></i></a>` : '';
+                
+                return `<div class="swiper-slide" style="background:#111; border-radius:10px; overflow:hidden; position:relative;">
+                    ${mediaElement}
+                    <div style="position:absolute; bottom:0; left:0; width:100%; background:rgba(0,0,0,0.75); color:#fff; display:flex; align-items:center; justify-content:space-between; padding:12px 15px; z-index:10;">
+                        <span style="font-size:13.5px; font-weight:bold; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-right:8px;">${banner.caption || ''}</span>
+                        ${btnHtml}
+                    </div>
+                </div>`;
+            }).join('');
+
+            html += `
+            <div class="swiper mySwiper" style="width: 100%; height: 210px; margin-bottom: 20px;">
+                <div class="swiper-wrapper">
+                    ${swiperSlides}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>`;
+        }
+
+        if(!Array.isArray(batches) || batches.length === 0) {
+            container.innerHTML = html + '<div class="loader-box">❌ Koi Batches Nahi Mile.</div>'; 
+            return;
+        }
+
+        html += '<div class="batch-grid">';
+        
+        batches.forEach((b) => {
+            let id = b.id || b._id;
+            let title = b.title || b.name || "Batch";
+            let banner = b.banner || b.thumbnail || "";
+            
+            let sellPriceNum = (b.discountPrice !== undefined && b.discountPrice !== null) ? Number(b.discountPrice) : ((b.price !== undefined && b.price !== null) ? Number(b.price) : 0);
+            let realPriceNum = (b.originalPrice !== undefined && b.originalPrice !== null) ? Number(b.originalPrice) : ((b.price && b.discountPrice && Number(b.price) > Number(b.discountPrice)) ? Number(b.price) : sellPriceNum);
+
+            let discountPercentage = 0;
+            if (realPriceNum > 0 && sellPriceNum < realPriceNum) {
+                discountPercentage = Math.round(((realPriceNum - sellPriceNum) / realPriceNum) * 100);
+            }
+
+            let priceDisplayHtml = '';
+            if (sellPriceNum === 0) {
+                priceDisplayHtml = `
+                    <div class="price-row">
+                        <span class="free-price">FREE</span>
+                        ${realPriceNum > 0 ? `<span class="old-price">₹${realPriceNum}</span>` : ''}
+                    </div>
+                `;
+            } else {
+                priceDisplayHtml = `
+                    <div class="price-row">
+                        <span class="free-price">₹${sellPriceNum}</span>
+                        ${realPriceNum > sellPriceNum ? `<span class="old-price">₹${realPriceNum}</span>` : ''}
+                    </div>
+                `;
+            }
+            if (discountPercentage > 0) {
+                priceDisplayHtml += `<span class="price-discount-badge">${discountPercentage}% OFF</span>`;
+            }
+
+            let metaTagsHtml = '<div class="course-meta-tags">';
+            if (b.isLive) {
+                metaTagsHtml += `<span class="meta-tag" style="color:#ff3b30;"><i class="fa-solid fa-tower-broadcast"></i> Live</span>`;
+            } else if (isBatchRecorded(b)) {
+                metaTagsHtml += `<span class="meta-tag"><i class="fa-solid fa-video"></i> Recorded</span>`;
+            }
+            if (b.validity) {
+                let vStr = String(b.validity).trim();
+                if (!vStr.toLowerCase().includes('validity')) {
+                    if (vStr.match(/^\d+\s*(year|yr|month|mo|day|d)$/i)) {
+                        vStr += " validity";
+                    }
+                }
+                metaTagsHtml += `<span class="meta-tag"><i class="fa-regular fa-clock"></i> ${esc(vStr)}</span>`;
+            }
+            metaTagsHtml += '</div>';
+
+            let isFav = favs.some(f => (f.id || f._id) === id);
+            let bJsonStr = encodeURIComponent(JSON.stringify(b));
+
+            let globalIndex = allFetchedBatches.findIndex(item => (item.id || item._id) === id);
+            let showLiveBadge = checkTop24Global && globalIndex > -1 && globalIndex < 24 && !isBatchRecorded(b);
+
+            let highlights = b.courseHighlights || b.highlights || [];
+            let highlightsHtml = '';
+            if (Array.isArray(highlights) && highlights.length > 0) {
+                let displayHighlights = highlights.slice(0, 3); 
+                highlightsHtml = '<ul class="card-highlights">';
+                displayHighlights.forEach(h => {
+                    let text = typeof h === 'object' ? (h.title || h.text || '') : h;
+                    if(text) highlightsHtml += `<li><i class="fa-solid fa-check" style="color:#ff9933; margin-right:4px;"></i>${text}</li>`;
+                });
+                if(highlights.length > 3) {
+                    highlightsHtml += `<li style="color:#888; font-size:10.5px; font-weight:bold;">+${highlights.length - 3} more...</li>`;
+                }
+                highlightsHtml += '</ul>';
+            } else if (typeof highlights === 'string' && highlights.trim() !== '') {
+                 highlightsHtml = `<div class="card-highlights-text">${highlights}</div>`;
+            } else if (b.description && typeof b.description === 'string') {
+                 highlightsHtml = `<div class="card-highlights-text">${b.description}</div>`;
+            }
+
+            html += `
+                <div class="batch-card">
+                    <div class="banner-container">
+                        <img src="${banner}" onerror="this.src='https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png'">
+                        ${showLiveBadge ? `<div class="live-badge-overlay"><div class="live-badge-dot"></div> LIVE</div>` : ''}
+                        <div class="fav-icon-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${bJsonStr}')"><i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i></div>
+                    </div>
+                    <div class="batch-card-body">
+                        <div class="batch-card-title">${title}</div>
+                        <div class="batch-card-sub">⚡ 𝐎𝐖𝐍𝐄𝐑 ➛ 𝐏𝐀ⲛDЕY 𝐉𝐈 UP⁴³</div>
+                        ${metaTagsHtml}
+                        ${highlightsHtml}
+                        <div class="batch-footer">
+                            <div class="price-tag">
+                                ${priceDisplayHtml}
+                            </div>
+                            <div class="play-btn-card" onclick="openBatchView('${id}', '${title.replace(/'/g, "\\'")}', 'content')">
+                                <i class="fa-solid fa-play"></i> Let's study
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+        
+        container.innerHTML = html;
+
+        if (isHomeTab && query === '' && myCustomBanners.length > 0) {
+            if (window.mySwiperInstance) {
+                window.mySwiperInstance.destroy(true, true);
+            }
+            window.mySwiperInstance = new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+        }
+    }
+async function loadBatches() {
+        setActiveTab('home'); 
+        document.getElementById('search-box').value = ''; 
+        closePlayer(); 
+        closePdf();
+
+        let header = document.getElementById('main-header');
+        if (header) header.style.display = 'flex';
+
+        if (allFetchedBatches.length > 0) {
+            renderBatchesGrid(allFetchedBatches, true);
+            return;
+        }
+
+        const container = document.getElementById('portal-container');
+        container.innerHTML = '<div class="loader-box"><i class="fa-solid fa-circle-notch fa-spin"></i><br><br>⏳ LOADING...</div>';
+
+        try {
+            loadDynamicConfig();
+            let json = await safeFetch(`${API_BASE}/courses/`);
+            allFetchedBatches = json.data || json || [];
+            renderBatchesGrid(allFetchedBatches, true);
+        } catch(e) {
+            container.innerHTML = '<div class="loader-box">Check internet connection or refresh page.</div>';
+        }
+    }
+
+    function showFavorites() {
+        setActiveTab('fav'); document.getElementById('search-box').value = ''; closePlayer(); closePdf();
+        let header = document.getElementById('main-header');
+        if (header) header.style.display = 'flex';
+        let favs = getFavorites();
+        const container = document.getElementById('portal-container');
+        if(favs.length === 0) { container.innerHTML = '<div class="loader-box">❤️ Koi Favorite Batch Add Nahi Kiya Gaya Hai.</div>'; return; }
+        renderBatchesGrid(favs, false);
+    }
+
+    function showLiveTab() {
+        setActiveTab('live'); document.getElementById('search-box').value = ''; closePlayer(); closePdf();
+        let header = document.getElementById('main-header');
+        if (header) header.style.display = 'flex';
+        const container = document.getElementById('portal-container');
+        function displayLive() {
+            let liveBatches = getLiveBatches();
+            if(liveBatches.length === 0) { container.innerHTML = '<div class="loader-box">🔴 Koi Live Batches available nahi hain.</div>'; } 
+            else { renderBatchesGrid(liveBatches, true); }
+        }
+        if(allFetchedBatches.length === 0) { loadBatches().then(() => { setActiveTab('live'); displayLive(); }); } 
+        else { displayLive(); }
+    }
+
+    function showRecordedTab() {
+        setActiveTab('recorded'); document.getElementById('search-box').value = ''; closePlayer(); closePdf();
+        let header = document.getElementById('main-header');
+        if (header) header.style.display = 'flex';
+        const container = document.getElementById('portal-container');
+        function displayRecorded() {
+            let recordedBatches = getRecordedBatches();
+            if(recordedBatches.length === 0) { container.innerHTML = '<div class="loader-box">📼 Koi VOD / Recorded Batches nahi mile.</div>'; } 
+            else { renderBatchesGrid(recordedBatches, false); }
+        }
+        if(allFetchedBatches.length === 0) { loadBatches().then(() => { setActiveTab('recorded'); displayRecorded(); }); } 
+        else { displayRecorded(); }
+    }
+
+    async function openBatchView(batchId, batchName, initialTab = 'content') {
+        closePlayer(); closePdf();
+        
+        let header = document.getElementById('main-header');
+        if (header) header.style.display = 'none';
+
+        const container = document.getElementById('portal-container');
+        
+        container.innerHTML = `
+            <button class="back-btn" onclick="loadBatches()"><i class="fa-solid fa-arrow-left"></i> Back to Courses</button>
+            <div class="batch-tab-container">
+                <button class="batch-tab-btn ${initialTab === 'content' ? 'active' : ''}" id="tab-content" onclick="switchBatchTab('${batchId}', '${batchName.replace(/'/g, "\\'")}', 'content')">📁 Content</button>
+                <button class="batch-tab-btn ${initialTab === 'overview' ? 'active' : ''}" id="tab-overview" onclick="switchBatchTab('${batchId}', '${batchName.replace(/'/g, "\\'")}', 'overview')">Overview</button>
+                <button class="batch-tab-btn ${initialTab === 'timetable' ? 'active' : ''}" id="tab-timetable" onclick="switchBatchTab('${batchId}', '${batchName.replace(/'/g, "\\'")}', 'timetable')">Upcoming</button>
+                <button class="batch-tab-btn ${initialTab === 'history' ? 'active' : ''}" id="tab-history" onclick="switchBatchTab('${batchId}', '${batchName.replace(/'/g, "\\'")}', 'history')">🕒 History</button>
+            </div>
+            <div id="batch-tab-content"><div class="loader-box"><i class="fa-solid fa-sync fa-spin"></i><br><br>⏳ Loading...</div></div>
+        `;
+        if (!currentActiveBatchData || (currentActiveBatchData.id || currentActiveBatchData._id) !== batchId) {
+            try {
+                let json = await safeFetch(`${API_BASE}/courses/${batchId}`);
+                currentActiveBatchData = json.data || json;
+            } catch(e) {}
+        }
+        switchBatchTabContent(batchId, batchName, initialTab);
+    }
+
+    async function switchBatchTab(batchId, batchName, tabName) {
+        ['content', 'overview', 'timetable', 'history'].forEach(t => {
+            let btn = document.getElementById(`tab-${t}`);
+            if (btn) btn.classList.remove('active');
+        });
+        let activeBtn = document.getElementById(`tab-${tabName}`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        switchBatchTabContent(batchId, batchName, tabName);
+    }
+
+    function renderSubjectChapters(topicIndex, batchId, batchName, viewMode = 'all') {
+        let tabContainer = document.querySelector('.batch-tab-container');
+        if (tabContainer) tabContainer.style.display = 'none';
+
+        const tabContentContainer = document.getElementById('batch-tab-content');
+        let topic = currentFetchedTopics[topicIndex];
+        if (!topic) return;
+
+        let s_name = cleanNameForGrouping(getStringVal(topic.topicName || topic.title || topic.name)) || `Subject ${topicIndex+1}`;
+        
+        let allChaptersMap = {};
+        let flatLectures = [];
+        let flatPdfs = [];
+
+        let subChapters = topic.chapters || topic.subTopics || topic.folders || topic.sections || [];
+        if (Array.isArray(subChapters) && subChapters.length > 0) {
+            subChapters.forEach(chap => {
+                let rawChap = getStringVal(chap.chapterName || chap.name || chap.title || chap.topicName);
+                let chapName = cleanNameForGrouping(rawChap) || "Chapter Folder";
+                let chapClasses = chap.classes || chap.videos || chap.items || [];
+                if (!allChaptersMap[chapName]) allChaptersMap[chapName] = [];
+                allChaptersMap[chapName].push(...chapClasses);
+            });
+        } else {
+            let classes = topic.classes || topic.videos || topic.items || [topic];
+            classes.forEach(cls => {
+                let rawChap = getStringVal(cls.chapterName || cls.chapter || cls.subTopic || cls.folderName || cls.subTopicName || cls.chapter_name || cls.moduleName || cls.sectionName);
+                let chapName = cleanNameForGrouping(rawChap);
+
+                if (!chapName || chapName === s_name) {
+                    let rawTopic = getStringVal(cls.topicName);
+                    let tName = cleanNameForGrouping(rawTopic);
+                    if (tName && tName !== s_name) {
+                        chapName = tName;
+                    } else {
+                        let rawTitle = getStringVal(cls.title || cls.name);
+                        chapName = cleanNameForGrouping(rawTitle);
+                    }
+                }
+
+                if (!chapName || chapName === s_name) {
+                    chapName = "General Chapters";
+                }
+
+                if (!allChaptersMap[chapName]) {
+                    allChaptersMap[chapName] = [];
+                }
+                allChaptersMap[chapName].push(cls);
+            });
+        }
+
+        for (let [cName, cClasses] of Object.entries(allChaptersMap)) {
+            cClasses.forEach(cls => {
+                let v_link = cls.class_link || cls.video_link || cls.link || cls.url || cls.streamUrl;
+                if (!v_link && cls.mp4Recordings && cls.mp4Recordings.length > 0) {
+                    v_link = cls.mp4Recordings[0].url;
+                }
+                if (v_link) {
+                    flatLectures.push(cls);
+                }
+                let pdfs = cls.classPdf || cls.pdfs || [];
+                pdfs.forEach(pdf => {
+                    let p_url = typeof pdf === 'object' ? pdf.url : pdf;
+                    if (p_url) {
+                        flatPdfs.push({ cls: cls, url: p_url });
+                    }
+                });
+            });
+        }
+        let lecCount = flatLectures.length;
+        let pdfCount = flatPdfs.length;
+        let allCount = lecCount + pdfCount;
+
+        let pdfTasks = [];
+        let html = `
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
+                <button onclick="renderSubjectChapters(${topicIndex}, '${batchId}', '${batchName.replace(/'/g, "\\'")}', 'all')" style="flex: 1; padding: 11px 8px; background: ${viewMode === 'all' ? 'linear-gradient(135deg, #ff9933, #e67e22)' : '#1e1e1e'}; color: #fff; border-radius: 10px; font-weight: bold; border: ${viewMode === 'all' ? 'none' : '1px solid #333'}; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.2s;">
+                    <i class="fa-solid fa-folder-open"></i> All (${allCount})
+                </button>
+                <button onclick="renderSubjectChapters(${topicIndex}, '${batchId}', '${batchName.replace(/'/g, "\\'")}', 'lectures')" style="flex: 1; padding: 11px 8px; background: ${viewMode === 'lectures' ? 'linear-gradient(135deg, #28a745, #218838)' : '#1e1e1e'}; color: #fff; border-radius: 10px; font-weight: bold; border: ${viewMode === 'lectures' ? 'none' : '1px solid #333'}; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.2s;">
+                    <i class="fa-solid fa-video"></i> Lectures (${lecCount})
+                </button>
+                <button onclick="renderSubjectChapters(${topicIndex}, '${batchId}', '${batchName.replace(/'/g, "\\'")}', 'pdfs')" style="flex: 1; padding: 11px 8px; background: ${viewMode === 'pdfs' ? 'linear-gradient(135deg, #dc3545, #c82333)' : '#1e1e1e'}; color: #fff; border-radius: 10px; font-weight: bold; border: ${viewMode === 'pdfs' ? 'none' : '1px solid #333'}; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.2s;">
+                    <i class="fa-solid fa-file-pdf"></i> PDFs (${pdfCount})
+                </button>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; background: #ffffff; padding: 12px 16px; border-radius: 10px; border-left: 5px solid #ff9933; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                <h3 style="margin: 0; color: #333; font-size: 15px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-book-open" style="color: #ff9933;"></i> ${s_name}</h3>
+                <button class="btn" style="background: #333; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;" onclick="switchBatchTabContent('${batchId}', '${batchName.replace(/'/g, "\\'")}', 'content')">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Subjects
+                </button>
+            </div>
+        `;
+
+        if (viewMode === 'all') {
+            let cIndex = 0;
+            for (let [chapName, chapClasses] of Object.entries(allChaptersMap)) {
+                let chapSid = `chap_${topicIndex}_${cIndex}`;
+                let chapItemsHtml = "";
+                let chapItemCount = 0;
+
+                chapClasses.forEach(cls => {
+                    let rawTitle = getStringVal(cls.title || cls.name) || 'Untitled Class';
+                    let displayTitle = rawTitle.startsWith("OWNER PANDEY JI") ? rawTitle : `OWNER PANDEY JI ${rawTitle}`;
+                    let safeTitle = displayTitle.replace(/'/g, "\\'");
+                    let v_link = cls.class_link || cls.video_link || cls.link || cls.url || cls.streamUrl;
+                    
+                    if (!v_link && cls.mp4Recordings && cls.mp4Recordings.length > 0) {
+                        v_link = cls.mp4Recordings[0].url;
+                    }
+
+                    let classDateStr = "";
+                    let rawDate = cls.startDate || cls.createdAt || cls.date;
+                    if (rawDate) {
+                        let d = new Date(rawDate);
+                        if (!isNaN(d.getTime())) {
+                            let dateFormatted = d.toLocaleDateString('en-GB');
+                            let timeFormatted = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                            classDateStr = `<div class="class-time" style="margin-top: 2px; color: #ff9933; font-size: 11px; font-weight: 600;"><i class="fa-regular fa-calendar-days"></i> ${dateFormatted} • ${timeFormatted}</div>`;
+                        }
+                    }
+
+                    let durationStr = "";
+                    let rawDuration = cls.duration || cls.length || cls.videoDuration || cls.video_duration || cls.runtime || cls.lengthInSeconds || cls.dura;
+                    if (rawDuration !== undefined && rawDuration !== null && rawDuration !== "") {
+                        let sec = parseInt(rawDuration);
+                        if (!isNaN(sec)) {
+                            if (sec > 100000) { sec = Math.floor(sec / 1000); }
+                            let hrs = Math.floor(sec / 3600);
+                            let mins = Math.floor((sec % 3600) / 60);
+                            durationStr = hrs > 0 ? `${hrs} ghnte ${mins} minute` : `${mins} minute`;
+                        } else {
+                            durationStr = String(rawDuration);
+                        }
+                    }
+                    let durationHtml = durationStr ? `<div style="font-size: 11px; color: #28a745; font-weight: bold; margin-top: 2px;"><i class="fa-regular fa-clock"></i> ${durationStr}</div>` : "";
+
+                    let pdfs = cls.classPdf || cls.pdfs || [];
+                    let thumbImgUrl = cls.thumbnail || cls.banner || cls.image || "https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png";
+
+                    if(v_link) {
+                        chapItemsHtml += `
+                            <div class="item">
+                                <div style="flex:1; min-width:180px;">
+                                    <span class="item-title">
+                                        <img src="${thumbImgUrl}" class="item-thumb-circle" onerror="this.src='https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png'">
+                                        <div>
+                                            <div>${displayTitle}</div>
+                                            ${durationHtml}
+                                            ${classDateStr}
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="links"><button class="btn btn-v" onclick="playInAppVideo('${v_link}', '${safeTitle}')"><i class="fa-solid fa-play"></i> PLAY </button></div>
+                            </div>
+                        `;
+                        chapItemCount++;
+                    }
+
+                    pdfs.forEach(pdf => {
+                        let p_url = typeof pdf === 'object' ? pdf.url : pdf;
+                        if(p_url) {
+                            let sizeSpanId = "sz_" + Math.random().toString(36).substring(7);
+                            pdfTasks.push({ url: p_url, id: sizeSpanId });
+
+                            chapItemsHtml += `
+                                <div class="item">
+                                    <div style="flex:1; min-width:180px;">
+                                        <span class="item-title">
+                                            <img src="${PDF_CUSTOM_THUMB}" class="item-thumb-circle" onerror="this.src='${PDF_CUSTOM_THUMB}'">
+                                            <div>
+                                                <div>${displayTitle} (PDF)</div>
+                                                ${classDateStr}
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <div class="links">
+                                        <button class="btn btn-p" onclick="openPdfOnline('${p_url}', '${safeTitle}')"><i class="fa-solid fa-file-pdf"></i> VIEW PDF</button>
+                                        <button class="btn btn-d" onclick="downloadPdf('${p_url}', '${safeTitle}', event)"><i class="fa-solid fa-download"></i> DOWNLOAD<span id="${sizeSpanId}"></span></button>
+                                    </div>
+                                </div>
+                            `;
+                            chapItemCount++;
+                        }
+                    });
+                });
+html += `
+                    <div class="sub-box">
+                        <div class="sub-head" style="background:#1e90ff;" onclick="toggle('${chapSid}')">
+                            <span>📂 ${chapName}</span>
+                            <span>${chapItemCount} Items <i class="fa-solid fa-chevron-down" style="margin-left:5px;"></i></span>
+                        </div>
+                        <div id="${chapSid}" class="content">${chapItemsHtml || '<div style="padding:10px; color:#888; text-align:center;">Empty Chapter</div>'}</div>
+                    </div>
+                `;
+                cIndex++;
+            }
+        } else if (viewMode === 'lectures') {
+            let chapItemsHtml = "";
+            flatLectures.forEach(cls => {
+                let rawTitle = getStringVal(cls.title || cls.name) || 'Untitled Class';
+                let displayTitle = rawTitle.startsWith("OWNER PANDEY JI") ? rawTitle : `OWNER PANDEY JI ${rawTitle}`;
+                let safeTitle = displayTitle.replace(/'/g, "\\'");
+                let v_link = cls.class_link || cls.video_link || cls.link || cls.url || cls.streamUrl;
+                if (!v_link && cls.mp4Recordings && cls.mp4Recordings.length > 0) {
+                    v_link = cls.mp4Recordings[0].url;
+                }
+
+                let classDateStr = "";
+                let rawDate = cls.startDate || cls.createdAt || cls.date;
+                if (rawDate) {
+                    let d = new Date(rawDate);
+                    if (!isNaN(d.getTime())) {
+                        let dateFormatted = d.toLocaleDateString('en-GB');
+                        let timeFormatted = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        classDateStr = `<div class="class-time" style="margin-top: 2px; color: #ff9933; font-size: 11px; font-weight: 600;"><i class="fa-regular fa-calendar-days"></i> ${dateFormatted} • ${timeFormatted}</div>`;
+                    }
+                }
+
+                let durationStr = "";
+                let rawDuration = cls.duration || cls.length || cls.videoDuration || cls.video_duration || cls.runtime || cls.lengthInSeconds || cls.dura;
+                if (rawDuration !== undefined && rawDuration !== null && rawDuration !== "") {
+                    let sec = parseInt(rawDuration);
+                    if (!isNaN(sec)) {
+                        if (sec > 100000) { sec = Math.floor(sec / 1000); }
+                        let hrs = Math.floor(sec / 3600);
+                        let mins = Math.floor((sec % 3600) / 60);
+                        durationStr = hrs > 0 ? `${hrs} ghnte ${mins} minute` : `${mins} minute`;
+                    } else {
+                        durationStr = String(rawDuration);
+                    }
+                }
+                let durationHtml = durationStr ? `<div style="font-size: 11px; color: #28a745; font-weight: bold; margin-top: 2px;"><i class="fa-regular fa-clock"></i> ${durationStr}</div>` : "";
+                let thumbImgUrl = cls.thumbnail || cls.banner || cls.image || "https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png";
+
+                chapItemsHtml += `
+                    <div class="item">
+                        <div style="flex:1; min-width:180px;">
+                            <span class="item-title">
+                                <img src="${thumbImgUrl}" class="item-thumb-circle" onerror="this.src='https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png'">
+                                <div>
+                                    <div>${displayTitle}</div>
+                                    ${durationHtml}
+                                    ${classDateStr}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="links"><button class="btn btn-v" onclick="playInAppVideo('${v_link}', '${safeTitle}')"><i class="fa-solid fa-play"></i> PLAY </button></div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="sub-box">
+                    <div class="sub-head" style="background:#28a745; cursor:default;">
+                        <span>📂 General (All Lectures)</span>
+                        <span>${flatLectures.length} Lectures</span>
+                    </div>
+                    <div class="content" style="display: block;">${chapItemsHtml || '<div style="padding:10px; color:#888; text-align:center;">No Lectures Found</div>'}</div>
+                </div>
+            `;
+        } else if (viewMode === 'pdfs') {
+            let chapItemsHtml = "";
+            flatPdfs.forEach(item => {
+                let cls = item.cls;
+                let p_url = item.url;
+                let rawTitle = getStringVal(cls.title || cls.name) || 'Untitled Class';
+                let displayTitle = rawTitle.startsWith("OWNER PANDEY JI") ? rawTitle : `OWNER PANDEY JI ${rawTitle}`;
+                let safeTitle = displayTitle.replace(/'/g, "\\'");
+
+                let classDateStr = "";
+                let rawDate = cls.startDate || cls.createdAt || cls.date;
+                if (rawDate) {
+                    let d = new Date(rawDate);
+                    if (!isNaN(d.getTime())) {
+                        let dateFormatted = d.toLocaleDateString('en-GB');
+                        let timeFormatted = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        classDateStr = `<div class="class-time" style="margin-top: 2px; color: #ff9933; font-size: 11px; font-weight: 600;"><i class="fa-regular fa-calendar-days"></i> ${dateFormatted} • ${timeFormatted}</div>`;
+                    }
+                }
+
+                let sizeSpanId = "sz_" + Math.random().toString(36).substring(7);
+                pdfTasks.push({ url: p_url, id: sizeSpanId });
+
+                chapItemsHtml += `
+                    <div class="item">
+                        <div style="flex:1; min-width:180px;">
+                            <span class="item-title">
+                                <img src="${PDF_CUSTOM_THUMB}" class="item-thumb-circle" onerror="this.src='${PDF_CUSTOM_THUMB}'">
+                                <div>
+                                    <div>${displayTitle} (PDF)</div>
+                                    ${classDateStr}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="links">
+                            <button class="btn btn-p" onclick="openPdfOnline('${p_url}', '${safeTitle}')"><i class="fa-solid fa-file-pdf"></i> VIEW PDF</button>
+                            <button class="btn btn-d" onclick="downloadPdf('${p_url}', '${safeTitle}', event)"><i class="fa-solid fa-download"></i> DOWNLOAD<span id="${sizeSpanId}"></span></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="sub-box">
+                    <div class="sub-head" style="background:#dc3545; cursor:default;">
+                        <span>📂 General (All PDFs)</span>
+                        <span>${flatPdfs.length} PDFs</span>
+                    </div>
+                    <div class="content" style="display: block;">${chapItemsHtml || '<div style="padding:10px; color:#888; text-align:center;">No PDFs Found</div>'}</div>
+                </div>
+            `;
+        }
+
+        tabContentContainer.innerHTML = html;
+
+        setTimeout(() => {
+            pdfTasks.forEach(task => fetchPdfSize(task.url, task.id));
+        }, 500);
+    }
+
+    async function switchBatchTabContent(batchId, batchName, tabName) {
+        const tabContentContainer = document.getElementById('batch-tab-content');
+        if (!tabContentContainer) return;
+
+        let tabContainer = document.querySelector('.batch-tab-container');
+        if (tabContainer) tabContainer.style.display = 'flex';
+
+        if (tabName === 'content') {
+            tabContentContainer.innerHTML = '<div class="loader-box"><i class="fa-solid fa-sync fa-spin"></i><br><br>⏳ Loading Content...</div>';
+            try {
+                let json = await safeFetch(`${API_BASE}/courses/${batchId}/classes?populate=full`);
+                let topics = json.data?.classes || json.classes || json.data || [];
+                currentFetchedTopics = topics;
+                
+                if (!Array.isArray(topics) || topics.length === 0) {
+                    tabContentContainer.innerHTML = '<div class="loader-box">⚠️ Abhi batch start nhi huaa.</div>';
+                    return;
+                }
+
+                let body_html = "";
+                let customFolderImg = "https://i.postimg.cc/wv3RgCjh/Screenshot-2026-07-30-13-33-52-41-948cd9899890cbd5c2798760b2b95377.jpg";
+                
+                topics.forEach((t, i) => {
+                    let s_name = cleanNameForGrouping(getStringVal(t.topicName || t.title || t.name)) || `Folder ${i+1}`;
+                    let classes = t.classes || t.videos || [t];
+                    
+                    let folderIconHtml = `<img src="${customFolderImg}" class="folder-thumb-circle" onerror="this.src='https://i.postimg.cc/wv3RgCjh/Screenshot-2026-07-30-13-33-52-41-948cd9899890cbd5c2798760b2b95377.jpg'">`;
+
+                    body_html += `
+                        <div class="folder-card" onclick="renderSubjectChapters(${i}, '${batchId}', '${batchName.replace(/'/g, "\\'")}', 'all')">
+                            <div class="folder-info">
+                                ${folderIconHtml}
+                                <span>${s_name}</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="folder-count">${classes.length} Classes</span>
+                                <i class="fa-solid fa-chevron-right" style="color:#aaa; font-size:12px;"></i>
+                            </div>
+                        </div>
+                    `;
+                });
+                tabContentContainer.innerHTML = body_html;
+
+            } catch(e) {
+                tabContentContainer.innerHTML = '<div class="loader-box">❌ Content load karne me error aayi.</div>';
+            }
+        } else if (tabName === 'overview') {
+            tabContentContainer.innerHTML = '<div class="loader-box"><i class="fa-solid fa-sync fa-spin"></i><br><br>⏳ Loading Overview...</div>';
+            let batchData = currentActiveBatchData || {};
+            let banner = batchData.banner || batchData.thumbnail || "";
+            
+            let sellPriceNum = (batchData.discountPrice !== undefined && batchData.discountPrice !== null) ? Number(batchData.discountPrice) : ((batchData.price !== undefined && batchData.price !== null) ? Number(batchData.price) : 0);
+            let realPriceNum = (batchData.originalPrice !== undefined && batchData.originalPrice !== null) ? Number(batchData.originalPrice) : ((batchData.price && batchData.discountPrice && Number(batchData.price) > Number(batchData.discountPrice)) ? Number(batchData.price) : sellPriceNum);
+
+            let priceDisplay = sellPriceNum === 0 ? 'FREE' : `₹${sellPriceNum}`;
+            if (realPriceNum > sellPriceNum) {
+                let disc = Math.round(((realPriceNum - sellPriceNum) / realPriceNum) * 100);
+                priceDisplay += ` <span style="font-size: 14px; color: #888; text-decoration: line-through; font-weight: 600;">₹${realPriceNum}</span> <span style="font-size: 13px; color: #28a745; font-weight: bold;">(${disc}% OFF)</span>`;
+            }
+
+            let desc = batchData.description || batchData.about || batchData.summary || "No description available.";
+            let descHtml = `<div style="font-size:14px; line-height:1.6; color:#444; white-space: pre-line;">${desc}</div>`;
+            if (Array.isArray(batchData.description) && batchData.description.length > 0) {
+                descHtml = `<ul style="padding-left: 20px; font-size:14px; line-height:1.6; color:#444;">` + batchData.description.map(item => `<li>${item}</li>`).join('') + `</ul>`;
+            }
+            let highlightsHtml = "";
+            let highlights = batchData.courseHighlights || batchData.highlights;
+            if (Array.isArray(highlights) && highlights.length > 0) {
+                highlightsHtml = `
+                    <hr style="border:0; border-top:1px solid #eee; margin:16px 0;">
+                    <h4 style="margin-bottom:8px; color:#ff9933;">✨ Course Highlights:</h4>
+                    <ul style="padding-left: 20px; font-size:14px; line-height:1.6; color:#444;">
+                        ${highlights.map(h => `<li>${typeof h === 'object' ? (h.title || h.text || JSON.stringify(h)) : h}</li>`).join('')}
+                    </ul>
+                `;
+            }
+            let facultyHtml = "";
+            let faculty = batchData.facultyDetails || batchData.faculty || batchData.teacher;
+            if (faculty) {
+                let faculties = Array.isArray(faculty) ? faculty : [faculty];
+                facultyHtml = `
+                    <hr style="border:0; border-top:1px solid #eee; margin:16px 0;">
+                    <h4 style="margin-bottom:8px; color:#ff9933;">👨‍🏫 Faculty Details:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                `;
+                faculties.forEach(f => {
+                    let fName = f.name || f.title || f.teacherName || "Teacher";
+                    let fImg = f.image || f.photo || f.avatar || f.imageUrl || "";
+                    let fBio = f.bio || f.description || f.designation || "";
+                    facultyHtml += `
+                        <div style="display: flex; align-items: center; gap: 12px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee;">
+                            ${fImg ? `<img src="${fImg}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" onerror="this.style.display='none'">` : '<div style="width: 50px; height: 50px; border-radius: 50%; background: #ddd; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-user" style="color: #666;"></i></div>'}
+                            <div>
+                                <div style="font-weight: bold; font-size: 14px; color: #333;">${fName}</div>
+                                ${fBio ? `<div style="font-size: 12px; color: #666; margin-top: 2px;">${fBio}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                facultyHtml += `</div>`;
+            }
+            let faqHtml = "";
+            let faqs = batchData.faqs || batchData.faq;
+            if (Array.isArray(faqs) && faqs.length > 0) {
+                faqHtml = `
+                    <hr style="border:0; border-top:1px solid #eee; margin:16px 0;">
+                    <h4 style="margin-bottom:8px; color:#ff9933;">❓ Frequently Asked Questions (FAQs):</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                `;
+                faqs.forEach((faq, fIdx) => {
+                    let q = faq.question || faq.q || "Question";
+                    let a = faq.answer || faq.a || "Answer";
+                    let faqId = `faq_${fIdx}`;
+                    faqHtml += `
+                        <div style="background: #fdfdfd; border: 1px solid #ddd; border-radius: 6px; overflow: hidden;">
+                            <div onclick="toggle('${faqId}')" style="padding: 10px 12px; font-weight: bold; font-size: 13.5px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #f5f5f5;">
+                                <span>${q}</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div id="${faqId}" style="display: none; padding: 10px 12px; font-size: 13px; color: #555; border-top: 1px solid #eee; background: #fff;">
+                                ${a}
+                            </div>
+                        </div>
+                    `;
+                });
+                faqHtml += `</div>`;
+            }
+
+            tabContentContainer.innerHTML = `
+                <div class="sub-box" style="padding: 15px;">
+                    <img src="${banner}" style="width:100%; max-height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;" onerror="this.src='https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png'">
+                    <h2 style="margin-top:0; color:#ff9933; font-size:18px;">${batchName}</h2>
+                    <p style="font-weight:bold; color:#28a745; font-size:16px;">Price: ${priceDisplay}</p>
+                    <hr style="border:0; border-top:1px solid #eee; margin:12px 0;">
+                    <h4 style="margin-bottom:8px; color:#ff9933;">📖 Batch Description / Overview:</h4>
+                    ${descHtml}
+                    ${highlightsHtml}
+                    ${facultyHtml}
+                    ${faqHtml}
+                </div>
+            `;
+        } else if (tabName === 'timetable') {
+            renderTimetabTab(batchId, currentActiveBatchData || {});
+        } else if (tabName === 'history') {
+            let historyKey = 'batch_history_' + batchId;
+            let history = JSON.parse(localStorage.getItem(historyKey) || '[]');
+            
+            if (history.length === 0) {
+                tabContentContainer.innerHTML = '<div class="loader-box">🕒 Abhi tak aapne is batch ki koi video nahi dekhi hai.</div>';
+                return;
+            }
+let historyHtml = history.map((item, idx) => {
+                let dateObj = new Date(item.time);
+                let timeStr = !isNaN(dateObj.getTime()) ? dateObj.toLocaleString() : '';
+                return `
+                    <div class="item">
+                        <div style="flex:1; min-width:180px;">
+                            <span class="item-title">
+                                <img src="https://i.postimg.cc/7PF6SP6R/file-000000009290821187ff34aaef4ccaf2.png" class="item-thumb-circle">
+                                <div>
+                                    <div>${esc(item.title)}</div>
+                                    <div class="class-time" style="margin-top: 4px; color: #777; font-size: 11px;"><i class="fa-regular fa-clock"></i> Watched on: ${timeStr}</div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="links">
+                            <button class="btn btn-v" onclick="playInAppVideo('${esc(item.url)}', '${esc(item.title)}')"><i class="fa-solid fa-play"></i> PLAY AGAIN</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            tabContentContainer.innerHTML = `
+                <div class="sub-box">
+                    <div class="sub-head" style="background:#ff9933; cursor:default;">
+                        <span><i class="fa-solid fa-clock-rotate-left"></i> Watch History</span>
+                        <button class="btn btn-d" style="padding: 2px 8px; font-size: 11px;" onclick="clearBatchHistory('${batchId}')"><i class="fa-solid fa-trash"></i> Clear History</button>
+                    </div>
+                    <div class="content" style="display: block;">
+                        ${historyHtml}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    function openBatchOverview(batchId, batchName) {
+        openBatchView(batchId, batchName, 'overview');
+    }
+
+    function extractAndRenderBatch(batchId, batchName) {
+        openBatchView(batchId, batchName, 'content');
+    }
+
+    function closePlayer() {
+        if (hlsInstance) {
+            hlsInstance.destroy();
+            hlsInstance = null;
+        }
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+        document.getElementById('player-wrapper').style.display = 'none';
+        document.getElementById('video-target').innerHTML = '';
+        document.body.classList.remove('fullscreen-active');
+    }
+
+    function openPdfOnline(url, title) {
+        closePlayer();
+        document.getElementById('pdf-title').innerText = title + " (PDF)";
+        document.getElementById('pdf-frame').src = "https://docs.google.com/viewer?url=" + encodeURIComponent(url) + "&embedded=true";
+        document.getElementById('pdf-modal').style.display = 'flex';
+    }
+
+    async function downloadPdf(url, title, evt) {
+        let btn = null;
+        let origHtml = "";
+        if (evt && evt.currentTarget) {
+            btn = evt.currentTarget;
+            origHtml = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Downloading...`;
+            btn.disabled = true;
+        }
+        try {
+            let response = await fetch(url, { mode: 'cors' });
+            if (!response.ok) throw new Error('CORS blocked');
+            let blob = await response.blob();
+            let blobUrl = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = (title || 'document') + '.pdf';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            }, 1000);
+        } catch (err) {
+            try {
+                let a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } catch (e) {
+                window.open(url, '_blank');
+            }
+        } finally {
+            if (btn) {
+                btn.innerHTML = origHtml;
+                btn.disabled = false;
+            }
+        }
+    }
+
+    function closePdf() {
+        document.getElementById('pdf-modal').style.display = 'none';
+        document.getElementById('pdf-frame').src = '';
+    }
+
+    function checkEmbeddedNotification() {
+        if (embeddedPopupNotification && embeddedPopupNotification.trim() !== "") {
+            showNotificationPopup(embeddedPopupNotification);
+        }
+    }
+
+    function showNotificationPopup(msg) {
+        let existing = document.getElementById('dynamic-notif-popup');
+        if (existing) existing.remove();
+
+        let div = document.createElement('div');
+        div.id = 'dynamic-notif-popup';
+        div.style.cssText = "position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); z-index: 9999999; display: flex; align-items: center; justify-content: center; padding: 15px; box-sizing: border-box;";
+        div.innerHTML = `
+            <div style="background: #ffffff; color: #333333; width: 100%; max-width: 500px; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); position: relative;">
+                <div style="font-size: 18px; font-weight: bold; color: #ff9933; margin-bottom: 12px; text-align: center; border-bottom: 2px solid #ff9933; padding-bottom: 8px;">📢 Notification / Update</div>
+                <div style="font-size: 13.5px; line-height: 1.6; margin-bottom: 15px; white-space: pre-line;">${esc(msg)}</div>
+                <button onclick="this.closest('#dynamic-notif-popup').remove()" style="width: 100%; background: #28a745; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; text-align: center; font-size: 13px;">OK</button>
+            </div>
+        `;
+        document.body.appendChild(div);
+    }
+
+    window.onload = async () => {
+        loadDynamicConfig();
+        loadBatches();
+        checkEmbeddedNotification();
+    };
+</script>
+</body>
+</html>

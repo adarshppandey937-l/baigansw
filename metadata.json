@@ -1,0 +1,6 @@
+{
+  "name": "Course Content - Pandey Ji UP43",
+  "description": "High-performance educational course portal with instant PDF generation, export, real-time file size detection, and seamless HLS video playback.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
